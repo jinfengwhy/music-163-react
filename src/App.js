@@ -1,13 +1,16 @@
 import React, { memo } from 'react'
-import { Outlet } from 'react-router-dom'
+
+import Routes from '@/routes'
 
 import AppHeader from '@/components/app-header'
+import AppFooter from '@/components/app-footer'
 
 const App = memo(() => {
   return (
     <div className='app'>
       <AppHeader />
-      <Outlet />
+      <Routes />
+      <AppFooter />
     </div>
   )
 })

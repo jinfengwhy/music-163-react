@@ -4,11 +4,11 @@ import { HashRouter } from 'react-router-dom'
 
 import '@/assets/css/reset.css'
 
-import Routes from '@/routes'
+import App from '@/App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <HashRouter>
-    <Routes />
+    <App />
   </HashRouter>
 );
