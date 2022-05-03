@@ -4,6 +4,7 @@ import { useRoutes } from "react-router-dom";
 import App from '@/App';
 import Discover from 'views/discover'
 import My from 'views/my'
+import Friend from 'views/friend'
 
 const routes = [
   {
@@ -17,6 +18,10 @@ const routes = [
       {
         path: 'my',
         element: <My />
+      },
+      {
+        path: 'friend',
+        element: <Friend />
       }
     ]
   }
