@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useRoutes, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 import Discover from 'views/discover'
 import My from 'views/my'
@@ -24,8 +24,4 @@ const routes = [
   }
 ]
 
-function Root() {
-  return useRoutes(routes)
-}
-
-export default Root
+export default routes
