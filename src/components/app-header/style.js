@@ -25,7 +25,7 @@ const AppHeaderLeft = styled.div`
     height: 69px;
     padding-right: 20px;
     text-indent: -9999px;
-
+    box-sizing: content-box;
     background-position: 0 0;
   }
 
@@ -76,6 +76,49 @@ const AppHeaderLeft = styled.div`
 `
 
 const AppHeaderRight = styled.div`
+  display: flex;
+  padding-top: 19px;
+  font-size: 12px;
+
+  .search {
+    width: 158px;
+    height: 32px;
+    border-radius: 16px;
+
+    input::placeholder {
+      font-size: 12px;
+    }
+  }
+
+  .ceator-center {
+    width: 90px;
+    height: 32px;
+    margin-left: 16px;
+    box-sizing: border-box;
+    border: 1px solid #4F4F4F;
+    line-height: 32px;
+    color: #ccc;
+    border-radius: 20px;
+    text-align: center;
+
+    &:hover {
+      color: #fff;
+      text-decoration: none;
+      border: 1px solid #ccc;
+    }
+  }
+
+  .login {
+    width: 28px;
+    margin-top: 7px;
+    color: #787878;
+    margin-left: 19px;
+    margin-right: 42px;
+
+    &:hover {
+      color: #999
+    }
+  }
 `
 
 export {

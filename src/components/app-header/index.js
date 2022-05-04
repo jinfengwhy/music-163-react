@@ -1,8 +1,10 @@
 import React, { memo } from 'react'
-import { NavLink } from 'react-router-dom'
 
 import { headerLinks } from '@/common/local-data'
 
+import { NavLink } from 'react-router-dom'
+import { Input } from 'antd'
+import { SearchOutlined } from '@ant-design/icons'
 import { AppHeaderWrapper, AppHeaderLeft, AppHeaderRight } from './style'
 
 const index = memo(() => {
@@ -37,6 +39,9 @@ const index = memo(() => {
           </ul>
         </AppHeaderLeft>
         <AppHeaderRight>
+          <Input className='search' placeholder='音乐/视频/电台/用户' prefix={<SearchOutlined />}/>
+          <a className='ceator-center' href='/'>创造者中心</a>
+          <a className='login' href='/'>登录</a>
         </AppHeaderRight>
       </div>
       <div className='divider'></div>
