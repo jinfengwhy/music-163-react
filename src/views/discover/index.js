@@ -1,18 +1,12 @@
-import React, { memo, useEffect } from 'react'
-import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import React, { memo } from 'react'
+import { NavLink, useRoutes } from 'react-router-dom'
 
+import { discoverChildren } from '@/routes'
 import { discoverMenu } from '@/common/local-data'
 
 import { DiscoverWrapper } from './style'
 
 const index = memo(props => {
-
-  const navigate = useNavigate()
-  useEffect(() => {
-    navigate('/discover/recommend')
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
   return (
     <DiscoverWrapper className='discover-wrapper'>
       <div className='top'>
@@ -29,7 +23,7 @@ const index = memo(props => {
           }
         </ul>
       </div>
-      <Outlet />
+      {useRoutes(discoverChildren)}
     </DiscoverWrapper>
   )
 })

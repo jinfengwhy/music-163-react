@@ -11,40 +11,15 @@ import Artist from 'views/discover/components/artist'
 import Djradio from 'views/discover/components/djradio'
 import Album from 'views/discover/components/album'
 
+// 根路由
 const routes = [
   {
     path: '/',
     element: <Navigate to='/discover' replace />,
   },
   {
-    path: '/discover',
+    path: '/discover/*',
     element: <Discover />,
-    children: [
-      {
-        path: 'recommend',
-        element: <Recommend />
-      },
-      {
-        path: 'toplist',
-        element: <Toplist />
-      },
-      {
-        path: 'playlist',
-        element: <Playlist />
-      },
-      {
-        path: 'djradio',
-        element: <Djradio />
-      },
-      {
-        path: 'artist',
-        element: <Artist />
-      },
-      {
-        path: 'album',
-        element: <Album />
-      },
-    ]
   },
   {
     path: '/my',
@@ -56,4 +31,39 @@ const routes = [
   }
 ]
 
-export default routes
+// discover二级路由
+const discoverChildren = [
+  {
+    path: '', 
+    element: <Navigate to='recommend' replace />
+  },
+  {
+    path: 'recommend',
+    element: <Recommend />
+  },
+  {
+    path: 'toplist',
+    element: <Toplist />
+  },
+  {
+    path: 'playlist',
+    element: <Playlist />
+  },
+  {
+    path: 'artist',
+    element: <Artist />
+  },
+  {
+    path: 'djradio',
+    element: <Djradio />
+  },
+  {
+    path: 'album',
+    element: <Album />
+  },
+]
+
+export {
+  routes,
+  discoverChildren
+}
