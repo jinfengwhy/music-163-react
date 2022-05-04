@@ -2,7 +2,8 @@ import React, { memo } from 'react'
 
 const index = memo(() => {
   return (
-    <div className='app-footer'>
+    <div>
+      <h2>Artist</h2>
     </div>
   )
 })
