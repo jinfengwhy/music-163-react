@@ -6,7 +6,9 @@ import { getTopBannersAction } from './store/actionCreators'
 const index = memo(props => {
   // shallowEqual 浅层比较
   const { topBanners } = useSelector(state => ({
-    topBanners: state.recommend.topBanners
+    // topBanners: state.get('recommend').get('topBanners')
+    // 等价写法
+    topBanners: state.getIn(['recommend', 'topBanners'])
   }), shallowEqual)
   const dispatch = useDispatch()
 
