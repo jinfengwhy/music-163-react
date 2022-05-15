@@ -1,14 +1,17 @@
 import React, { memo, useEffect } from 'react'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { getTopBannersAction } from './store/actionCreators'
 
 const index = memo(props => {
-  const { getTopBanners, topBanners } = props
+  const { topBanners } = useSelector(state => ({
+    topBanners: state.recommend.topBanners
+  }))
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    getTopBanners()
-  }, [getTopBanners])
+    dispatch(getTopBannersAction())
+  }, [dispatch])
 
   return (
     <div>
@@ -17,14 +20,4 @@ const index = memo(props => {
   )
 })
 
-const mapStateToProps = state => ({
-  topBanners: state.recommend.topBanners
-})
-
-const mapDispatchToProps = dispatch => ({
-  getTopBanners() {
-    dispatch(getTopBannersAction())
-  }
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(index)
+export default index
