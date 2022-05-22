@@ -2,7 +2,7 @@ import React, { memo } from 'react'
 
 import { RecommendContent, RecommendLeft, RecommendRight, RecommendWrapper } from './style'
 import TopBanners from './c-cpns/top-banners'
-import ThemeHeader from '@/components/theme-header'
+import HotRecommends from './c-cpns/hot-recommends'
 
 const index = memo(props => {
   return (
@@ -10,9 +10,7 @@ const index = memo(props => {
       <TopBanners />
       <RecommendContent className='wrap-v2'>
         <RecommendLeft>
-          <ThemeHeader title="热门推荐" 
-            keywords={["华语", "流行", "民谣", "摇滚", "电子"]}
-          />
+          <HotRecommends />
         </RecommendLeft>
         <RecommendRight>
         </RecommendRight>
