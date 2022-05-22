@@ -9,10 +9,10 @@ const index = memo(props => {
     <RecommendWrapper className='wrap-v1-min'>
       <TopBanners />
       <RecommendContent className='wrap-v2'>
-        <RecommendLeft>
+        <RecommendLeft className='recommend-left'>
           <HotRecommends />
         </RecommendLeft>
-        <RecommendRight>
+        <RecommendRight className='recommend-right'>
         </RecommendRight>
       </RecommendContent>
     </RecommendWrapper>

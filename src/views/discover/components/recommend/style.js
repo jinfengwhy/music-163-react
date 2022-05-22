@@ -8,7 +8,7 @@ export const RecommendContent = styled.div`
 `
 
 export const RecommendLeft = styled.div`
-  flex: 1;
+  width: 730px;
   padding: 20px;
 `
 
