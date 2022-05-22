@@ -5,7 +5,7 @@ import TopBanners from './c-cpns/top-banners'
 
 const index = memo(props => {
   return (
-    <RecommendWrapper>
+    <RecommendWrapper className='wrap-v1-min'>
       <TopBanners />
     </RecommendWrapper>
   )

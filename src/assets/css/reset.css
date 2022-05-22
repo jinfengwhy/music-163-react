@@ -59,6 +59,10 @@ body, textarea, select, input, button {
   margin: 0 auto;
 }
 
+.wrap-v1-min {
+  min-width: 1100px;
+}
+
 .wrap-v2 {
   width: 980px;
   margin: 0 auto;
