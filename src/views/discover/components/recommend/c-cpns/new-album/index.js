@@ -25,7 +25,7 @@ const index = memo(() => {
     <NewAlbumWrapper className='new-album-wrapper'>
       <ThemeHeader title="新碟上架" />
       <div className="content">
-        <button class="arrow arrow-left sprite_02" onClick={e => pageRef.current.prev()}></button>
+        <button className="arrow arrow-left sprite_02" onClick={e => pageRef.current.prev()}></button>
         <div className="list">
           <Carousel dots={false} ref={pageRef}>
             {
@@ -46,7 +46,7 @@ const index = memo(() => {
             }
           </Carousel>
         </div>
-        <button class="arrow arrow-right sprite_02" onClick={e => pageRef.current.next()}></button>
+        <button className="arrow arrow-right sprite_02" onClick={e => pageRef.current.next()}></button>
       </div>
     </NewAlbumWrapper>
   )
