@@ -1,10 +1,11 @@
 import { Map } from 'immutable'
 
-import { CHANGE_HOT_RECOMMENDS, CHANGE_TOP_BANNERS } from "./constants"
+import { CHANGE_HOT_RECOMMENDS, CHANGE_NEW_ALBUMS, CHANGE_TOP_BANNERS } from "./constants"
 
 const defaultState = Map({
   topBanners: [],
-  hotRecommends: []
+  hotRecommends: [],
+  newAlbums: []
 })
 
 function reducer(initState = defaultState, action) {
@@ -14,6 +15,9 @@ function reducer(initState = defaultState, action) {
     }
     case CHANGE_HOT_RECOMMENDS: {
       return initState.set('hotRecommends', action.hotRecommends)
+    }
+    case CHANGE_NEW_ALBUMS: {
+      return initState.set('newAlbums', action.newAlbums)
     }
     default: {
       return defaultState

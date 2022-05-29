@@ -11,3 +11,11 @@ export const getHotRecommends = limit => {
     }
   })
 }
+
+export const getNewAlbums = limit => {
+  return request.get('/top/album', {
+    params: {
+      limit
+    }
+  })
+}
