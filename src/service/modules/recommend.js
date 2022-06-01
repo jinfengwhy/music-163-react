@@ -19,3 +19,7 @@ export const getNewAlbums = limit => {
     }
   })
 }
+
+export const getSongRank = id => {
+  return request.get(`https://coderwhy-music.vercel.app/playlist/detail?id=${id}`)
+}

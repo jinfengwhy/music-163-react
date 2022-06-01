@@ -4,6 +4,7 @@ import { RecommendContent, RecommendLeft, RecommendRight, RecommendWrapper } fro
 import TopBanners from './c-cpns/top-banners'
 import HotRecommends from './c-cpns/hot-recommends'
 import NewAlbum from './c-cpns/new-album'
+import SongRank from './c-cpns/song-rank'
 
 const index = memo(props => {
   return (
@@ -13,6 +14,7 @@ const index = memo(props => {
         <RecommendLeft className='recommend-left'>
           <HotRecommends />
           <NewAlbum />
+          <SongRank />
         </RecommendLeft>
         <RecommendRight className='recommend-right'>
         </RecommendRight>
