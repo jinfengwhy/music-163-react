@@ -21,21 +21,19 @@ export const changeNewAlbums = res => ({
   newAlbums: res.albums
 })
 
-const songRank = (res, num) => res.playlist.tracks.slice(0, num)
-
 export const changeTopSongRank = res => ({
   type: actionType.CHANGE_TOP_SONG_RANK,
-  topSongRank: songRank(res, 10)
+  topSongRank: res?.playlist
 })
 
 export const changeNewSongRank = res => ({
   type: actionType.CHANGE_NEW_SONG_RANK,
-  newSongRank: songRank(res, 10)
+  newSongRank: res?.playlist
 })
 
 export const changeOriginalSongRank = res => ({
   type: actionType.CHANGE_ORIGINAL_SONG_RANK,
-  originalSongRank: songRank(res, 10)
+  originalSongRank: res?.playlist
 })
 
 export const getTopBannersAction = () => {

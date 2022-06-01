@@ -13,9 +13,9 @@ const defaultState = Map({
   topBanners: [],
   hotRecommends: [],
   newAlbums: [],
-  topSongRank: [],
-  newSongRank: [],
-  originalSongRank: []
+  topSongRank: {},
+  newSongRank: {},
+  originalSongRank: {}
 })
 
 function reducer(initState = defaultState, action) {
