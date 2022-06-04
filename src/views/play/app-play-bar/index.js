@@ -1,4 +1,4 @@
-import React, { memo, useState, useEffect, useRef } from 'react'
+import React, { memo, useState, useEffect, useRef, useCallback } from 'react'
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 
 import { getSizeImg, formatMinuteSecond, getSongPlayUrl } from '@/utils/format-utils'
@@ -15,6 +15,7 @@ import {
 const index = memo(() => {
   // props and state
   const [isPlaying, setIsPlaying] = useState(false)
+  const [isDraging, setIsDraging] = useState(false)
   const [curTime, setCurTime] = useState(0) // 毫秒
   const [progress, setProgress] = useState(0) // 0~100
 
@@ -39,7 +40,7 @@ const index = memo(() => {
   const songName = curSongDetail?.name, 
     songAuthor = curSongDetail?.ar && curSongDetail?.ar[0].name,
     showCurTime  = formatMinuteSecond(curTime), 
-    totalTime = curSongDetail?.dt,
+    totalTime = curSongDetail?.dt, // 毫秒
     showTotalTime = totalTime  ? formatMinuteSecond(totalTime) : ''
 
   // handle function
@@ -48,11 +49,30 @@ const index = memo(() => {
     isPlaying ? audioRef.current.pause() : audioRef.current.play()
     setIsPlaying(!isPlaying)
   }
+
   const onTimeUpdate = e => {
     const curTime = e.target.currentTime * 1000
-    setCurTime(curTime)
-    setProgress(curTime / totalTime * 100)
+    if (!isDraging) {
+      setCurTime(curTime)
+      setProgress(curTime / totalTime * 100)
+    }
   }
+
+  const onEnded = () => {
+    setIsPlaying(false)
+  }
+
+  const onSliderChange = useCallback(value => {
+    setIsDraging(true)
+    setProgress(value)
+    setCurTime(value / 100 * totalTime)
+  }, [totalTime])
+
+  const onSliderAfterChange = useCallback(value => {
+    const curTime = value / 100 * totalTime
+    audioRef.current.currentTime = curTime / 1000
+    setIsDraging(false)
+  }, [audioRef, totalTime])
 
   return (
     <AppPlayBarWrapper className='app-play-bar-wrapper sprite_player'>
@@ -69,10 +89,12 @@ const index = memo(() => {
           <div className="info">
             <div className="song">
               <a href='/#' className='name'>{songName}</a>
+              <a href='/#' className='sprite_player mv'>mv</a>
               <a href='/#' className='author'>{songAuthor}</a>
             </div>
             <div className="progress">
-              <Slider defaultValue={0} value={progress} tipFormatter={null} />
+              <Slider defaultValue={0} value={progress} tipFormatter={null}
+                onChange={onSliderChange} onAfterChange={onSliderAfterChange} />
               <div className="time">
                 <span className="cur-time">{showCurTime}</span>
                 <span className='divider'>|</span>
@@ -92,7 +114,9 @@ const index = memo(() => {
             <a href="/#" className='sprite_player item playlist'>playlist</a>
           </div>
         </OperatorWrapper>
-        <audio ref={audioRef} className="audio-play" onTimeUpdate={e => onTimeUpdate(e)} />
+        <audio ref={audioRef} className="audio-play" 
+          onTimeUpdate={e => onTimeUpdate(e)} 
+          onEnded = {e => onEnded()}/>
       </div>
     </AppPlayBarWrapper>
   )

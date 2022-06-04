@@ -102,9 +102,23 @@ export const PlayInfoWrapper = styled.div`
     justify-content: center;
 
     .song {
+      display: flex;
+      align-items: center;
+
       .name {
         max-width: 300px;
         color: #e8e8e8;
+      }
+      .mv {
+        width: 19px;
+        height: 17px;
+        margin-left: 3px;
+        text-indent: -9999px;
+        background-position: 0 -57px;
+
+        &:hover {
+          background-position: -20px -57px;
+        }
       }
       .author {
         max-width: 220px;
