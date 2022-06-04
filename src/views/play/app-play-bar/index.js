@@ -1,7 +1,7 @@
-import React, { memo, useEffect } from 'react'
+import React, { memo, useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 
-import { getSizeImg, formatMinuteSecond } from '@/utils/format-utils'
+import { getSizeImg, formatMinuteSecond, getSongPlayUrl } from '@/utils/format-utils'
 import { getCurSongDetailAction } from '../store/actionCreators'
 
 import { Slider } from 'antd';
@@ -14,6 +14,9 @@ import {
 
 const index = memo(() => {
   // props and state
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [curTime, setCurTime] = useState(0) // 毫秒
+  const [progress, setProgress] = useState(0) // 0~100
 
   // redux hooks
   const { curSongDetail = {} } = useSelector(state => ({
@@ -22,21 +25,41 @@ const index = memo(() => {
   const dispatch = useDispatch()
 
   // other hooks
+  const songId = 29450091
   useEffect(() => {
-    dispatch(getCurSongDetailAction(29450091))
+    dispatch(getCurSongDetailAction(songId))
   }, [dispatch])
+  useEffect(() => {
+    audioRef.current.src = getSongPlayUrl(songId)
+  }, [])
+  const audioRef = useRef()
 
   // other handle
   const showImgSrc = getSizeImg(curSongDetail?.al?.picUrl, 34)
-  const songName = curSongDetail?.name, songAuthor = curSongDetail?.ar[0].name,
-    curTime = '00:00', totalTime = formatMinuteSecond(curSongDetail.dt)
+  const songName = curSongDetail?.name, 
+    songAuthor = curSongDetail?.ar && curSongDetail?.ar[0].name,
+    showCurTime  = formatMinuteSecond(curTime), 
+    totalTime = curSongDetail?.dt,
+    showTotalTime = totalTime  ? formatMinuteSecond(totalTime) : ''
+
+  // handle function
+  const playSong = e => {
+    e.preventDefault()
+    isPlaying ? audioRef.current.pause() : audioRef.current.play()
+    setIsPlaying(!isPlaying)
+  }
+  const onTimeUpdate = e => {
+    const curTime = e.target.currentTime * 1000
+    setCurTime(curTime)
+    setProgress(curTime / totalTime * 100)
+  }
 
   return (
     <AppPlayBarWrapper className='app-play-bar-wrapper sprite_player'>
       <div className='content wrap-v2'>
         <ControlWrapper className='control-wrapper'>
           <a href='/#' className='sprite_player prev'>prev</a>
-          <a href='/#' className='sprite_player play'>play</a>
+          <a href='/#' className={['sprite_player', 'play-pause', isPlaying ? 'pause' : 'play'].join(' ')} onClick={playSong}>play / pause</a>
           <a href='/#' className='sprite_player next'>next</a>
         </ControlWrapper>
         <PlayInfoWrapper className='play-info-wrapper'>
@@ -49,11 +72,11 @@ const index = memo(() => {
               <a href='/#' className='author'>{songAuthor}</a>
             </div>
             <div className="progress">
-              <Slider defaultValue={0} tipFormatter={null} />
+              <Slider defaultValue={0} value={progress} tipFormatter={null} />
               <div className="time">
-                <span className="cur-time">{curTime}</span>
+                <span className="cur-time">{showCurTime}</span>
                 <span className='divider'>|</span>
-                <span className="total-time">{totalTime}</span>
+                <span className="total-time">{showTotalTime}</span>
               </div>
             </div>
           </div>
@@ -69,6 +92,7 @@ const index = memo(() => {
             <a href="/#" className='sprite_player item playlist'>playlist</a>
           </div>
         </OperatorWrapper>
+        <audio ref={audioRef} className="audio-play" onTimeUpdate={e => onTimeUpdate(e)} />
       </div>
     </AppPlayBarWrapper>
   )

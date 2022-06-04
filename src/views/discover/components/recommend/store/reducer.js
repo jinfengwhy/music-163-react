@@ -39,7 +39,7 @@ function reducer(initState = defaultState, action) {
       return initState.set('originalSongRank', action.originalSongRank)
     }
     default: {
-      return defaultState
+      return initState
     }
   }
 }

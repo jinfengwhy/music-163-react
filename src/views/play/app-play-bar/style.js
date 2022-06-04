@@ -54,14 +54,27 @@ export const ControlWrapper = styled.div`
     }
   }
 
-  .play {
+  .play-pause {
     width: 36px;
     height: 36px;
     margin: 0 8px;
-    background-position: 0 -204px;
 
+    text-indent: -9999px;
+  }
+  
+  .play {
+    background-position: 0 -204px;
+    
     &:hover {
       background-position: -40px -204px;
+    }
+  }
+  
+  .pause {
+    background-position: 0 -165px;
+
+    &:hover {
+      background-position: -40px -165px;
     }
   }
 `

@@ -14,7 +14,7 @@ function reducer(initState = defaultState, action) {
       return initState.set('curSongDetail', action.curSongDetail)
     }
     default: {
-      return defaultState
+      return initState
     }
   }
 }
