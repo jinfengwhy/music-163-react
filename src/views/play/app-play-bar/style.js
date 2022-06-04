@@ -136,7 +136,7 @@ export const PlayInfoWrapper = styled.div`
       }
 
       .time {
-        .now-time {
+        .cur-time {
           color: #a1a1a1;
         }
         .divider {

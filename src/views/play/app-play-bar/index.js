@@ -1,6 +1,8 @@
-import React, { memo } from 'react'
+import React, { memo, useEffect } from 'react'
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 
-import { getSizeImg } from '@/utils/format-utils'
+import { getSizeImg, formatMinuteSecond } from '@/utils/format-utils'
+import { getCurSongDetailAction } from '../store/actionCreators'
 
 import { Slider } from 'antd';
 import { 
@@ -11,9 +13,23 @@ import {
 } from './style'
 
 const index = memo(() => {
-  const imgSrc = 'https://p1.music.126.net/Wcs2dbukFx3TUWkRuxVCpw==/3431575794705764.jpg'
-  const showImgSrc = getSizeImg(imgSrc, 34)
-  const songName = '雅俗共赏', songAuthor = '许嵩', curTime = '01:17', totalTime = '04:01'
+  // props and state
+
+  // redux hooks
+  const { curSongDetail = {} } = useSelector(state => ({
+    curSongDetail: state.getIn(['play', 'curSongDetail'])
+  }), shallowEqual)
+  const dispatch = useDispatch()
+
+  // other hooks
+  useEffect(() => {
+    dispatch(getCurSongDetailAction(29450091))
+  }, [dispatch])
+
+  // other handle
+  const showImgSrc = getSizeImg(curSongDetail?.al?.picUrl, 34)
+  const songName = curSongDetail?.name, songAuthor = curSongDetail?.ar[0].name,
+    curTime = '00:00', totalTime = formatMinuteSecond(curSongDetail.dt)
 
   return (
     <AppPlayBarWrapper className='app-play-bar-wrapper sprite_player'>
