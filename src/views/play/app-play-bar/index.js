@@ -29,14 +29,21 @@ const index = memo(() => {
   const dispatch = useDispatch()
 
   // other hooks
-  const songId = 29450091
-  useEffect(() => {
-    dispatch(getCurSongDetailAction(songId))
-  }, [dispatch])
-  useEffect(() => {
-    audioRef.current.src = getSongPlayUrl(songId)
-  }, [])
   const audioRef = useRef()
+  useEffect(() => {
+    dispatch(getCurSongDetailAction(29450091)) // 小宝贝
+  }, [dispatch])
+
+  useEffect(() => {
+    audioRef.current.src = getSongPlayUrl(curSongDetail.id)
+    audioRef.current.play().then(() => {
+      console.log(`---setIsPlaying: true`);
+      setIsPlaying(true)
+    }).catch(err => {
+      console.log(`---setIsPlaying: false ${err}`);
+      setIsPlaying(false)
+    })
+  }, [curSongDetail])
 
   // other handle
   const showImgSrc = getSizeImg(curSongDetail?.al?.picUrl, 34)

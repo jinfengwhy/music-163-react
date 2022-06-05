@@ -33,6 +33,7 @@ export const getCurSongDetailAction = ids => {
     if (findIndex === -1) { // 播放列表没找到
       getCurSongDetail(ids).then(res => {
         const curSongDetail = res?.songs[0]
+        if (!curSongDetail) return
         dispatch(changeCurSongDetail(curSongDetail))
         dispatch(changePlaylist([...playlist, curSongDetail]))
       })
