@@ -13,7 +13,7 @@ export async function getCurSongDetail(ids) {
   return new Promise(resolve => resolve(result))
 }
 
-export async function getCurSongLyric(id) {
+export async function getSongLyricList(id) {
   let result = await request({
     url: "https://coderwhy-music.vercel.app/lyric",
     params: { id }

@@ -1,14 +1,14 @@
 export const defaultCurSongDetail = {
   "songs": [
     {
-      "name": "有何不可",
-      "id": 167876,
+      "name": "小宝贝",
+      "id": 29450091,
       "pst": 0,
       "t": 0,
       "ar": [
         {
-          "id": 5771,
-          "name": "许嵩",
+          "id": 1006074,
+          "name": "夏天播放",
           "tns": [],
           "alias": []
         }
@@ -16,64 +16,64 @@ export const defaultCurSongDetail = {
       "alia": [],
       "pop": 100,
       "st": 0,
-      "rt": "600902000007916021",
+      "rt": null,
       "fee": 8,
-      "v": 63,
+      "v": 38,
       "crbt": null,
       "cf": "",
       "al": {
-        "id": 16953,
-        "name": "自定义",
-        "picUrl": "https://p1.music.126.net/KyBR4ZDYFlzQJE_uyvfjpA==/109951166118671647.jpg",
+        "id": 3029018,
+        "name": "私奔丽江",
+        "picUrl": "https://p2.music.126.net/zE8AlLt_Fm1BT8LRROIXgg==/109951162949487525.jpg",
         "tns": [],
-        "pic_str": "109951166118671647",
-        "pic": 109951166118671650
+        "pic_str": "109951162949487525",
+        "pic": 109951162949487520
       },
-      "dt": 241840,
+      "dt": 192232,
       "h": {
         "br": 320000,
         "fid": 0,
-        "size": 9675799,
-        "vd": -58025,
+        "size": 7691538,
+        "vd": -59501,
         "sr": 44100
       },
       "m": {
         "br": 192000,
         "fid": 0,
-        "size": 5805497,
-        "vd": -55432,
+        "size": 4614940,
+        "vd": -56909,
         "sr": 44100
       },
       "l": {
         "br": 128000,
         "fid": 0,
-        "size": 3870346,
-        "vd": -53760,
+        "size": 3076641,
+        "vd": -55191,
         "sr": 44100
       },
       "sq": {
-        "br": 941672,
+        "br": 888774,
         "fid": 0,
-        "size": 28466869,
-        "vd": -58130,
+        "size": 21356370,
+        "vd": -59522,
         "sr": 44100
       },
       "hr": null,
       "a": null,
       "cd": "1",
-      "no": 3,
+      "no": 1,
       "rtUrl": null,
       "ftype": 0,
       "rtUrls": [],
       "djId": 0,
       "copyright": 2,
       "s_id": 0,
-      "mark": 8192,
+      "mark": 64,
       "originCoverType": 1,
       "originSongSimpleData": null,
       "tagPicList": null,
       "resourceState": true,
-      "version": 63,
+      "version": 38,
       "songJumpInfo": null,
       "entertainmentTags": null,
       "single": 0,
@@ -81,14 +81,14 @@ export const defaultCurSongDetail = {
       "rtype": 0,
       "rurl": null,
       "mst": 9,
-      "cp": 22036,
-      "mv": 0,
-      "publishTime": 1231516800000
+      "cp": -1,
+      "mv": 5611832,
+      "publishTime": 1411833600007
     }
   ],
   "privileges": [
     {
-      "id": 167876,
+      "id": 29450091,
       "fee": 0,
       "payed": 0,
       "st": -100,
@@ -101,7 +101,7 @@ export const defaultCurSongDetail = {
       "maxbr": 999000,
       "fl": 0,
       "toast": false,
-      "flag": 260,
+      "flag": 2,
       "preSell": false,
       "playMaxbr": 999000,
       "downloadMaxbr": 999000,

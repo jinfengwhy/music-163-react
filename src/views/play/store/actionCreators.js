@@ -6,7 +6,8 @@ import {
 } from '@/common/constants'
 
 import { getRandomNum } from '@/utils/math-utils.js'
-import { getCurSongDetail } from '@/service/modules/play'
+import { parseLyric } from '@/utils/parse-lyric.js'
+import { getCurSongDetail, getSongLyricList } from '@/service/modules/play'
 
 export const changeCurSongDetail = curSongDetail => ({
   type: actionType.CHANGE_CUR_SONG_DETAIL,
@@ -28,6 +29,11 @@ export const changePlaymode = playmode => ({
   playmode
 })
 
+export const changeSongLyricList = songLyricList => ({
+  type: actionType.CHANGE_SONG_LYRIC_LIST,
+  songLyricList
+})
+
 export const getCurSongDetailAction = ids => {
   return (dispatch, getState) => {
     const state = getState()
@@ -38,14 +44,25 @@ export const getCurSongDetailAction = ids => {
       getCurSongDetail(ids).then(res => {
         const curSongDetail = res?.songs[0]
         if (!curSongDetail) return
+
+        // 1.更新当前歌曲的详情
         dispatch(changeCurSongDetail(curSongDetail))
+        // 2.将该歌曲添加到播放列表中 更新播放列表
         dispatch(changePlaylist([...playlist, curSongDetail]))
+        // 3.更新当前歌曲在播放列表中占据的索引值
         dispatch(changeCurSongIndex(playlist.length))
+        // 4.更新当前歌曲的歌词信息
+        dispatch(getSongLyricListAction(curSongDetail.id))
       })
     } else { // 播放列表找到了
       const curSongDetail = playlist[findIndex]
+
+      // 1.更新当前歌曲的详情
       dispatch(changeCurSongDetail(curSongDetail))
+      // 2.更新当前歌曲在播放列表中占据的索引值
       dispatch(changeCurSongIndex(findIndex))
+      // 3.更新当前歌曲的歌词信息
+      dispatch(getSongLyricListAction(curSongDetail.id))
     }
   }
 }
@@ -89,7 +106,21 @@ export const switchSongAction = num => {
         newSongIndex = getRandomNum(length)
       }
     }
+
+    // 1.更新当前歌曲在播放列表中的index
     dispatch(changeCurSongIndex(newSongIndex))
+    // 2.更新redux中当前歌曲的详情
     dispatch(changeCurSongDetail(playlist[newSongIndex]))
+    // 3.更新redux中当前歌曲的歌词 dispatch也接收函数作为参数
+    dispatch(getSongLyricListAction(playlist[newSongIndex].id))
+  }
+}
+
+export const getSongLyricListAction = id => {
+  return dispatch => {
+    getSongLyricList(id).then(res => {
+      const lyricList = parseLyric(res?.lrc?.lyric)
+      dispatch(changeSongLyricList(lyricList))
+    })
   }
 }

@@ -4,7 +4,8 @@ import {
   CHANGE_CUR_SONG_DETAIL,
   CHANGE_CUR_SONG_INDEX,
   CHANGE_PLAYLIST,
-  CHANGE_PLAYMODE
+  CHANGE_PLAYMODE,
+  CHANGE_SONG_LYRIC_LIST
 } from "./constants"
 import { PLAYMODE_LOOP } from '@/common/constants'
 
@@ -12,7 +13,8 @@ const defaultState = Map({
   curSongDetail: {},
   curSongIndex: -1,
   playlist: [],
-  playmode: PLAYMODE_LOOP
+  playmode: PLAYMODE_LOOP,
+  songLyricList: []
 })
 
 function reducer(initState = defaultState, action) {
@@ -28,6 +30,9 @@ function reducer(initState = defaultState, action) {
     }
     case CHANGE_PLAYMODE: {
       return initState.set('playmode', action.playmode)
+    }
+    case CHANGE_SONG_LYRIC_LIST: {
+      return initState.set('songLyricList', action.songLyricList)
     }
     default: {
       return initState
