@@ -1,5 +1,5 @@
-export const PLAYMODE_LOOP = 0
+export const PLAYMODE_LOOP = 'LOOP'
 
-export const PLAYMODE_SHUFFLE = 1
+export const PLAYMODE_SHUFFLE = 'SHUFFLE'
 
-export const PLAYMODE_ONE = 2
+export const PLAYMODE_ONE = 'ONE'

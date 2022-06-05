@@ -5,9 +5,8 @@ import {
   PLAYMODE_ONE
 } from '@/common/constants'
 
-import { 
-  getCurSongDetail
-} from '@/service/modules/play'
+import { getRandomNum } from '@/utils/math-utils.js'
+import { getCurSongDetail } from '@/service/modules/play'
 
 export const changeCurSongDetail = curSongDetail => ({
   type: actionType.CHANGE_CUR_SONG_DETAIL,
@@ -51,7 +50,7 @@ export const getCurSongDetailAction = ids => {
   }
 }
 
-export const getNextPlaymode = () => {
+export const getNextPlaymodeAction = () => {
   return (dispatch, getState) => {
     const state = getState()
     const playmode = state.getIn(['play', 'playmode'])
@@ -67,5 +66,30 @@ export const getNextPlaymode = () => {
         break
       default:
     }
+  }
+}
+
+export const switchSongAction = num => {
+  return (dispatch, getState) => {
+    const state = getState()
+    const curSongIndex = state.getIn(['play', 'curSongIndex'])
+    const playmode = state.getIn(['play', 'playmode'])
+    const playlist = state.getIn(['play', 'playlist'])
+    const length = playlist.length
+    if (!length) return
+
+    let newSongIndex 
+    if (playmode !== PLAYMODE_SHUFFLE) { // 列表循环、单曲循环
+      newSongIndex = curSongIndex + num
+      if (newSongIndex >= length) newSongIndex = 0
+      if (newSongIndex < 0) newSongIndex = length - 1
+    } else { // 随机播放
+      newSongIndex = curSongIndex
+      while (newSongIndex === curSongIndex) {
+        newSongIndex = getRandomNum(length)
+      }
+    }
+    dispatch(changeCurSongIndex(newSongIndex))
+    dispatch(changeCurSongDetail(playlist[newSongIndex]))
   }
 }

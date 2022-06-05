@@ -3,7 +3,7 @@ import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 
 import { getSizeImg, formatMinuteSecond, getSongPlayUrl } from '@/utils/format-utils'
 import { PLAYMODE_SHUFFLE, PLAYMODE_ONE } from '@/common/constants'
-import { getCurSongDetailAction, getNextPlaymode } from '../store/actionCreators'
+import { getCurSongDetailAction, getNextPlaymodeAction, switchSongAction } from '../store/actionCreators'
 
 import { Slider } from 'antd';
 import { 
@@ -40,7 +40,7 @@ const index = memo(() => {
       console.log(`---setIsPlaying: true`);
       setIsPlaying(true)
     }).catch(err => {
-      console.log(`---setIsPlaying: false ${err}`);
+      console.error(`---setIsPlaying: false ${err}`);
       setIsPlaying(false)
     })
   }, [curSongDetail])
@@ -64,6 +64,7 @@ const index = memo(() => {
 
   const switchSong = (e, num) => {
     e.preventDefault()
+    dispatch(switchSongAction(num))
   }
 
   const onTimeUpdate = e => {
@@ -75,12 +76,17 @@ const index = memo(() => {
   }
 
   const onEnded = () => {
-    setIsPlaying(false)
+    if (playmode === PLAYMODE_ONE) { // 单曲循环
+      audioRef.current.currentTime = 0
+      audioRef.current.play()
+    } else { // 列表循环、随机播放
+      dispatch(switchSongAction(1))
+    }
   }
 
   const onChangePlaymode = e => {
     e.preventDefault()
-    dispatch(getNextPlaymode())
+    dispatch(getNextPlaymodeAction())
   }
 
   const onSliderChange = useCallback(value => {
