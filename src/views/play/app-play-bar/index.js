@@ -2,7 +2,8 @@ import React, { memo, useState, useEffect, useRef, useCallback } from 'react'
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 
 import { getSizeImg, formatMinuteSecond, getSongPlayUrl } from '@/utils/format-utils'
-import { getCurSongDetailAction } from '../store/actionCreators'
+import { PLAYMODE_SHUFFLE, PLAYMODE_ONE } from '@/common/constants'
+import { getCurSongDetailAction, getNextPlaymode } from '../store/actionCreators'
 
 import { Slider } from 'antd';
 import { 
@@ -20,9 +21,10 @@ const index = memo(() => {
   const [progress, setProgress] = useState(0) // 0~100
 
   // redux hooks
-  const { curSongDetail = {}, playlist = [] } = useSelector(state => ({
+  const { curSongDetail = {}, playlist = [], playmode } = useSelector(state => ({
     curSongDetail: state.getIn(['play', 'curSongDetail']),
-    playlist: state.getIn(['play', 'playlist'])
+    playlist: state.getIn(['play', 'playlist']),
+    playmode: state.getIn(['play', 'playmode'])
   }), shallowEqual)
   const dispatch = useDispatch()
 
@@ -42,7 +44,9 @@ const index = memo(() => {
     songAuthor = curSongDetail?.ar && curSongDetail?.ar[0].name,
     showCurTime  = formatMinuteSecond(curTime), 
     totalTime = curSongDetail?.dt, // 毫秒
-    showTotalTime = totalTime  ? formatMinuteSecond(totalTime) : ''
+    showTotalTime = totalTime  ? formatMinuteSecond(totalTime) : '',
+    playmodeClass = playmode === PLAYMODE_SHUFFLE ? 'shuffle' : 
+      playmode === PLAYMODE_ONE ? 'one' : 'loop' 
 
   // handle function
   const playSong = e => {
@@ -61,6 +65,11 @@ const index = memo(() => {
 
   const onEnded = () => {
     setIsPlaying(false)
+  }
+
+  const onChangePlaymode = e => {
+    e.preventDefault()
+    dispatch(getNextPlaymode())
   }
 
   const onSliderChange = useCallback(value => {
@@ -111,7 +120,8 @@ const index = memo(() => {
           </div>
           <div className="right sprite_player">
             <a href="/#" className='sprite_player item volume'>volume</a>
-            <a href="/#" className='sprite_player item loop'>loop</a>
+            <a href="/#" className={`sprite_player item ${playmodeClass}`}
+              onClick={onChangePlaymode}>loop</a>
             <a href="/#" className='sprite_player item playlist'>
               <span className='length'>{playlist.length}</span>
             </a>

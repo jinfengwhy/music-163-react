@@ -226,6 +226,22 @@ export const OperatorWrapper = styled.div`
       }
     }
 
+    .shuffle {
+      background-position: -66px -248px;
+
+      &:hover {
+        background-position: -93px -248px;
+      }
+    }
+
+    .one {
+      background-position: -66px -344px;
+
+      &:hover {
+        background-position: -93px -344px;
+      }
+    }
+
     .playlist {
       position: relative;
 
