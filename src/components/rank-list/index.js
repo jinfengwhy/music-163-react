@@ -1,6 +1,8 @@
 import React, { memo } from 'react'
+import { useDispatch } from 'react-redux';
 
 import { getSizeImg } from '@/utils/format-utils'
+import { getCurSongDetailAction } from '@/views/play/store'
 
 import { RankListWrapper } from './style'
 
@@ -8,6 +10,14 @@ const index = memo(props => {
   // props and state
   const { info = {} } = props;
   const { tracks = [] } = info;
+
+  // redux hook
+  const dispatch = useDispatch()
+
+  // handle function
+  const playSong = songId => {
+    dispatch(getCurSongDetailAction(songId))
+  }
 
   return (
     <RankListWrapper className='rank-list-wrapper'>
@@ -33,7 +43,7 @@ const index = memo(props => {
                 <div className="info">
                   <span className="name text-nowrap">{item.name}</span>
                   <div className="operate">
-                    <button className="btn sprite_02 play"></button>
+                    <button className="btn sprite_02 play" onClick={e => playSong(item?.id)}></button>
                     <button className="btn sprite_icon2 addto"></button>
                     <button className="btn sprite_02 favor"></button>
                   </div>

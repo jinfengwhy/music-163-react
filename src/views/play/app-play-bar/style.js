@@ -227,11 +227,23 @@ export const OperatorWrapper = styled.div`
     }
 
     .playlist {
+      position: relative;
+
       width: 59px;
       background-position: -42px -68px;
 
       &:hover {
         background-position: -42px -98px;
+      }
+
+      .length {
+        position: absolute;
+        right: 16px;
+        bottom: 50%;
+        transform: translateY(50%);
+
+        text-indent: 0;
+        color: #666;
       }
     }
 `

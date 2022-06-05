@@ -20,8 +20,9 @@ const index = memo(() => {
   const [progress, setProgress] = useState(0) // 0~100
 
   // redux hooks
-  const { curSongDetail = {} } = useSelector(state => ({
-    curSongDetail: state.getIn(['play', 'curSongDetail'])
+  const { curSongDetail = {}, playlist = [] } = useSelector(state => ({
+    curSongDetail: state.getIn(['play', 'curSongDetail']),
+    playlist: state.getIn(['play', 'playlist'])
   }), shallowEqual)
   const dispatch = useDispatch()
 
@@ -111,7 +112,9 @@ const index = memo(() => {
           <div className="right sprite_player">
             <a href="/#" className='sprite_player item volume'>volume</a>
             <a href="/#" className='sprite_player item loop'>loop</a>
-            <a href="/#" className='sprite_player item playlist'>playlist</a>
+            <a href="/#" className='sprite_player item playlist'>
+              <span className='length'>{playlist.length}</span>
+            </a>
           </div>
         </OperatorWrapper>
         <audio ref={audioRef} className="audio-play" 
