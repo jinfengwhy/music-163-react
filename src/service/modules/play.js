@@ -1,19 +1,25 @@
 import request from '../request'
 
-export function getCurSongDetail(ids) {
-  return request({
+import { defaultCurSongDetail, defaultCurSongLyric } from '@/common/interface-data'
+
+export async function getCurSongDetail(ids) {
+  let result = await request({
     url: "https://coderwhy-music.vercel.app/song/detail",
-    params: {
-      ids
-    }
+    params: { ids }
   })
+  if (!result || result.code !== 200) {
+    result = defaultCurSongDetail
+  }
+  return new Promise(resolve => resolve(result))
 }
 
-export function getCurSongLyric(id) {
-  return request({
+export async function getCurSongLyric(id) {
+  let result = await request({
     url: "https://coderwhy-music.vercel.app/lyric",
-    params: {
-      id
-    }
+    params: { id }
   })
+  if (!result || result.code !== 200) {
+    result = defaultCurSongLyric
+  }
+  return new Promise(resolve => resolve(result))
 }

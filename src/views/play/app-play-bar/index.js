@@ -37,10 +37,8 @@ const index = memo(() => {
   useEffect(() => {
     audioRef.current.src = getSongPlayUrl(curSongDetail.id)
     audioRef.current.play().then(() => {
-      console.log(`---setIsPlaying: true`);
       setIsPlaying(true)
     }).catch(err => {
-      console.error(`---setIsPlaying: false ${err}`);
       setIsPlaying(false)
     })
   }, [curSongDetail])
