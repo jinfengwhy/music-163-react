@@ -14,6 +14,11 @@ export const changeCurSongDetail = curSongDetail => ({
   curSongDetail
 })
 
+export const changeCurSongIndex = curSongIndex => ({
+  type: actionType.CHANGE_CUR_SONG_INDEX,
+  curSongIndex
+}) 
+
 export const changePlaylist = playlist => ({
   type: actionType.CHANGE_PLAYLIST,
   playlist
@@ -36,10 +41,12 @@ export const getCurSongDetailAction = ids => {
         if (!curSongDetail) return
         dispatch(changeCurSongDetail(curSongDetail))
         dispatch(changePlaylist([...playlist, curSongDetail]))
+        dispatch(changeCurSongIndex(playlist.length))
       })
     } else { // 播放列表找到了
       const curSongDetail = playlist[findIndex]
       dispatch(changeCurSongDetail(curSongDetail))
+      dispatch(changeCurSongIndex(findIndex))
     }
   }
 }

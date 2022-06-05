@@ -62,6 +62,10 @@ const index = memo(() => {
     setIsPlaying(!isPlaying)
   }
 
+  const switchSong = (e, num) => {
+    e.preventDefault()
+  }
+
   const onTimeUpdate = e => {
     const curTime = e.target.currentTime * 1000
     if (!isDraging) {
@@ -95,9 +99,9 @@ const index = memo(() => {
     <AppPlayBarWrapper className='app-play-bar-wrapper sprite_player'>
       <div className='content wrap-v2'>
         <ControlWrapper className='control-wrapper'>
-          <a href='/#' className='sprite_player prev'>prev</a>
+          <a href='/#' className='sprite_player prev' onClick={e => switchSong(e, -1)}>prev</a>
           <a href='/#' className={['sprite_player', 'play-pause', isPlaying ? 'pause' : 'play'].join(' ')} onClick={playSong}>play / pause</a>
-          <a href='/#' className='sprite_player next'>next</a>
+          <a href='/#' className='sprite_player next' onClick={e => switchSong(e, +1)}>next</a>
         </ControlWrapper>
         <PlayInfoWrapper className='play-info-wrapper'>
           <a href="/#" className="image">
