@@ -1,15 +1,15 @@
 import * as React from "react";
 import { Navigate } from "react-router-dom";
 
-import My from 'views/my'
-import Friend from 'views/friend'
-import Discover from 'views/discover'
-import Recommend from 'views/discover/components/recommend'
-import Toplist from 'views/discover/components/toplist'
-import Playlist from 'views/discover/components/playlist'
-import Artist from 'views/discover/components/artist'
-import Djradio from 'views/discover/components/djradio'
-import Album from 'views/discover/components/album'
+const My = React.lazy(_ => import('views/my'))
+const Friend = React.lazy(_ => import('views/friend'))
+const Discover = React.lazy(_ => import('views/discover'))
+const Recommend = React.lazy(_ => import('views/discover/components/recommend'))
+const Toplist = React.lazy(_ => import('views/discover/components/toplist'))
+const Playlist = React.lazy(_ => import('views/discover/components/playlist'))
+const Artist = React.lazy(_ => import('views/discover/components/artist'))
+const Djradio = React.lazy(_ => import('views/discover/components/djradio'))
+const Album = React.lazy(_ => import('views/discover/components/album'))
 
 // 根路由
 const routes = [
