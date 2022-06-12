@@ -3,7 +3,7 @@ import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 
 import { getSizeImg, formatMinuteSecond, getSongPlayUrl } from '@/utils/format-utils'
 import { PLAYMODE_SHUFFLE, PLAYMODE_ONE } from '@/common/constants'
-import { getCurSongDetailAction, getNextPlaymodeAction, switchSongAction } from '../store/actionCreators'
+import { getCurSongDetailAction, getNextPlaymodeAction, switchSongAction, changeSongLyricIndexAction } from '../store/actionCreators'
 
 import { Slider } from 'antd';
 import { 
@@ -21,10 +21,16 @@ const index = memo(() => {
   const [progress, setProgress] = useState(0) // 0~100
 
   // redux hooks
-  const { curSongDetail = {}, playlist = [], playmode } = useSelector(state => ({
+  const { 
+    curSongDetail = {}, 
+    playlist = [], 
+    playmode,
+    songLyricList = []
+  } = useSelector(state => ({    
     curSongDetail: state.getIn(['play', 'curSongDetail']),
     playlist: state.getIn(['play', 'playlist']),
-    playmode: state.getIn(['play', 'playmode'])
+    playmode: state.getIn(['play', 'playmode']),
+    songLyricList: state.getIn(['play', 'songLyricList'])
   }), shallowEqual)
   const dispatch = useDispatch()
 
@@ -71,6 +77,10 @@ const index = memo(() => {
       setCurTime(curTime)
       setProgress(curTime / totalTime * 100)
     }
+
+    // 匹配歌词信息
+    const i = songLyricList.findIndex(item => item.time > curTime)
+    dispatch(changeSongLyricIndexAction(i >= 1 ? i - 1 : 0))
   }
 
   const onEnded = () => {

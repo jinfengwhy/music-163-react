@@ -34,6 +34,11 @@ export const changeSongLyricList = songLyricList => ({
   songLyricList
 })
 
+export const changeSongLyricIndexAction = songLyricIndex => ({
+  type: actionType.CHANGE_SONG_LYRIC_INDEX,
+  songLyricIndex
+})
+
 export const getCurSongDetailAction = ids => {
   return (dispatch, getState) => {
     const state = getState()
