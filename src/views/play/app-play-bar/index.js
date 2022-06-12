@@ -6,6 +6,7 @@ import { PLAYMODE_SHUFFLE, PLAYMODE_ONE } from '@/common/constants'
 import { getCurSongDetailAction, getNextPlaymodeAction, switchSongAction, changeSongLyricIndexAction } from '../store/actionCreators'
 
 import { Slider } from 'antd';
+import LyricShow from './c-cpns/lyric-show'
 import { 
   AppPlayBarWrapper,
   ControlWrapper,
@@ -25,7 +26,8 @@ const index = memo(() => {
     curSongDetail = {}, 
     playlist = [], 
     playmode,
-    songLyricList = []
+    songLyricList = [],
+    songLyricIndex = 0
   } = useSelector(state => ({    
     curSongDetail: state.getIn(['play', 'curSongDetail']),
     playlist: state.getIn(['play', 'playlist']),
@@ -80,7 +82,9 @@ const index = memo(() => {
 
     // 匹配歌词信息
     const i = songLyricList.findIndex(item => item.time > curTime)
-    dispatch(changeSongLyricIndexAction(i >= 1 ? i - 1 : 0))
+    if (i !== -1 && i !== songLyricIndex) {
+      dispatch(changeSongLyricIndexAction(i - 1))
+    }
   }
 
   const onEnded = () => {
@@ -156,6 +160,7 @@ const index = memo(() => {
           onTimeUpdate={e => onTimeUpdate(e)} 
           onEnded = {e => onEnded()}/>
       </div>
+      <LyricShow />
     </AppPlayBarWrapper>
   )
 })
