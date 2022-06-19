@@ -39,9 +39,7 @@ const index = memo(() => {
             {
               topBanners.map(item => (
                 <div className='banner-item' key={item.imageUrl}>
-                  <a href="#/">
-                    <img src={item.imageUrl} alt={item.typeTitle} />
-                  </a>
+                  <img src={item.imageUrl} alt={item.typeTitle} />
                 </div>
               ))
             }

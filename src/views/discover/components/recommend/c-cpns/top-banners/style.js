@@ -30,7 +30,8 @@ export const BannerLeft = styled.div`
     }
 
     button {
-      display: none;
+      height: 100%;
+      background: transparent;
     }
   }
 `
